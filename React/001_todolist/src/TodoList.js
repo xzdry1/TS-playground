@@ -14,28 +14,43 @@ class TodoList extends Component {
         return (
             <Fragment>
                 <div>
-                    <input 
-                    value={this.state.inputValue}
-                    onChange={this.handleInputChange.bind(this)}
+                    <input
+                        value={this.state.inputValue}
+                        onChange={this.handleInputChange.bind(this)}
                     />
                     <button
-                    onChange={this.handleSubmit.bind(this)}
+                        onClick={this.handleSubmit.bind(this)}
                     >submit</button>
                 </div>
                 <ul>
-                    <li>a</li>
-                    <li>b</li>
+                    {this.state.list.map((el,index)=>{
+                        return <li 
+                        key={index}
+                        onClick={this.handleDelete.bind(this,index)}>{el}</li>
+                    })}
                 </ul>
             </Fragment>
         )
     }
 
-    handleInputChange(e){
+    handleInputChange(e) {
         this.setState({
-            inputValue:e.target.value
+            inputValue: e.target.value
         })
     }
-
+    handleSubmit() {
+        this.setState({
+            inputValue: '',
+            list: [...this.state.list,this.state.inputValue]
+        })
+    }
+    handleDelete(index){
+        let newList=[...this.state.list];
+        newList.splice(index,1);
+        this.setState({
+            list:newList
+        })
+    }
 }
 
 export default TodoList;
