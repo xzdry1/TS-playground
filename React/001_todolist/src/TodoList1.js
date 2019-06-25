@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-
+import TodoItem from './TodoItem1';
 
 class TodoList1 extends Component {
     constructor(props) {
@@ -23,11 +23,14 @@ class TodoList1 extends Component {
                 </div>
                 <ul>
                     {this.state.list.map((el, index) => {
-                        return <li
-                            key={index}
-                            onClick={this.handleDelete.bind(this, index)}>
-                            {el}
-                        </li>
+                        return (
+                            <TodoItem
+                            content={el}
+                            index={index}
+                            onClick={this.handleDelete}
+                            deleteItem={this.handleDelete.bind(this)}
+                            />
+                        )
                     })}
                 </ul>
             </Fragment>
