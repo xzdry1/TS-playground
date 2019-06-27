@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react';
+import TodoItem from './TodoItem2';
 
 class TodoList2 extends Component {
   constructor(props) {
@@ -8,6 +9,9 @@ class TodoList2 extends Component {
       inputVal: '',
       list: []
     }
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   render() {
@@ -16,40 +20,48 @@ class TodoList2 extends Component {
         <div>
           <input
             value={this.state.inputVal}
-            onChange={this.handleInput.bind(this)}
+            onChange={this.handleInput}
           />
           <button
-            onClick={this.handleClick.bind(this)}
+            onClick={this.handleClick}
           >submit</button>
         </div>
         <ul>
-          {this.state.list.map((el, index) => {
-            return <li 
-            onClick={this.handleDelete.bind(this,index)}
-            key={index}>
-              {el}
-            </li>
-          })}
+          {this.getTodoItem()}
         </ul>
       </Fragment>
     )
   }
-  handleInput(e) {
-    this.setState({
-      inputVal: e.target.value
+  getTodoItem() {
+    return this.state.list.map((el, index) => {
+      return (
+        <TodoItem
+          content={el}
+          index={index}
+          key={index}
+          deleteItem={this.handleDelete}
+        />
+      )
     })
+  }
+  handleInput(e) {
+    const value = e.target.value;
+    this.setState(() => ({
+      inputVal: value
+    }))
   }
   handleClick() {
-    this.setState({
+    this.setState((prevState) => ({
       inputVal: '',
-      list: [...this.state.list, this.state.inputVal]
-    })
+      list: [...prevState.list, prevState.inputVal]
+    }))
   }
-  handleDelete(index){
-    let newList=[...this.state.list];
-    newList.splice(index,1);
-    this.setState({
-      list:newList
+  handleDelete(index) {
+
+    this.setState((prevState) => {
+      let list = [...prevState.list];
+      list.splice(index, 1);
+      return { list }
     })
 
   }
