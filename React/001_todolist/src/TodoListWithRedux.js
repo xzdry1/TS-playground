@@ -9,15 +9,25 @@ class TodoList extends Component {
     super(props);
 
     this.state = store.getState();
-
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleStoreChange = this.handleStoreChange.bind(this);
+    store.subscribe(this.handleStoreChange);//订阅store
   }
 
   render() {
     return (
       <div style={{ marginTop: '10px', marginLeft: '10px' }}>
         <div>
-          <Input value={this.state.inputVal} placeholder="todo info" style={{ width: '200px' }} />
-          <Button type="dashed">Submit</Button>
+          <Input
+            value={this.state.inputVal}
+            placeholder="todo info"
+            style={{ width: '200px' }}
+            onChange={this.handleInput}
+          />
+          <Button
+            onClick={this.handleSubmit}
+            type="dashed">Submit</Button>
         </div>
         <List
           style={{ marginTop: '10px', width: '270px' }}
@@ -32,6 +42,23 @@ class TodoList extends Component {
       </div>
 
     )
+  }
+  handleSubmit() {
+    const action = {
+      type: 'add_todoitem',
+    }
+    store.dispatch(action);
+  }
+  handleStoreChange() {
+    this.setState(store.getState())
+  }
+  handleInput(e) {
+    const value = e.target.value;
+    const action = {
+      type: 'change_input_value',
+      value
+    }
+    store.dispatch(action);
   }
 }
 
