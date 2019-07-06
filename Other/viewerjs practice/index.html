@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.6/viewer.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.6/viewer.js"></script>
+</head>
+
+<body>
+  <div>
+    <img id="image" src="https://www.xzdry.net/api/media/1556781529013-MongoDB%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D.png"
+      alt="">
+  </div>
+
+  <div>
+    <ul id="images">
+      <li><img src="https://www.xzdry.net/api/media/1561738133284-nginx%E9%85%8D%E7%BD%AE.jpg" alt="Picture 1"></li>
+      <li><img
+          src="https://www.xzdry.net/api/media/1553671795226-%E7%BB%8F%E5%85%B8%E4%BA%94%E5%B1%82%E6%A8%A1%E5%9E%8B.png"
+          alt="Picture 2"></li>
+      <li><img src="https://www.xzdry.net/api/media/1553671318329-http%E5%8D%8F%E8%AE%AE%E5%9B%BE.png" alt="Picture 3">
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
+<script>
+  const viewer = new Viewer(document.getElementById('image'), {
+    // inline: true,
+    url(){
+      return 'https://www.xzdry.net/api/media/1561738133284-nginx%E9%85%8D%E7%BD%AE.jpg';
+    },
+    viewed() {
+      viewer.zoomTo(1);
+    },
+    backdrop: 'static',
+    button: true, //右上方关闭按钮
+    navbar: 0,  //工具栏下方的缩略图是否显示
+    title: 1,   //图片标题，默认为alt的值，可通过Function或[Number,Function]来自定义
+
+    toolbar: {
+      zoomIn: 1,
+      zoomOut: 1,
+      oneToOne: 2,
+      reset: 1,
+      play: {
+        show: 2,
+        size: 'large',
+      },
+      rotateLeft: 1,
+      rotateRight: 1,
+      flipHorizontal: 1,
+      flipVertical: 1,
+    },
+    className: 'bigImg',
+
+  })
+  // const gallery = new Viewer(document.getElementById('images'));
+  // console.log(gallery);
+</script>
